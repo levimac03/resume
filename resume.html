@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levi McCarty | Cybersecurity & Dev</title>
+    <link rel="icon" type="image/x-icon" href="https://fav.farm/🔒">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+        /* Themes */
+        body.clean { background: #f0f4f8; color: #2d3748; }
+        body.dark { background: #1a202c; color: #e2e8f0; }
+        body.cyber { background: linear-gradient(135deg, #0d1b2a, #1b263b); color: #00ffcc; }
+        body.cosmic { background: radial-gradient(circle at center, #1e1e2f, #0b0b1a); color: #a3bffa; }
+        body.minimal { background: #fff; color: #333; }
+        body.retro { background: #1a2b34; color: #d4a017; }
+        body.terminal { background: #000; color: #fff; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        /* Header (outside sidebar, temporary) */
+        #main-title {
+            font-size: 32px;
+            font-weight: 700;
+            font-family: 'IBM Plex Mono', monospace;
+            position: absolute;
+            top: 74px;
+            left: 110px;
+            z-index: 999;
+        }
+        .clean #main-title { color: #3182ce; }
+        .dark #main-title { background: linear-gradient(90deg, #63b3ed, #e2e8f0); -webkit-background-clip: text; color: transparent; }
+        .cyber #main-title { color: #00ffcc; }
+        .cosmic #main-title { background: linear-gradient(90deg, #a3bffa, #818cf8); -webkit-background-clip: text; color: transparent; }
+        .minimal #main-title { color: #222; }
+        .retro #main-title { color: #d4a017; }
+        .terminal #main-title { color: #fff; }
+        /* Sidebar */
+        .sidebar {
+            flex: 1;
+            min-width: 250px;
+            max-width: 100%;
+            border-radius: 12px;
+            padding: 20px;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            transition: background 0.5s ease;
+            opacity: 0;
+        }
+        .clean .sidebar { background: #ffffff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+        .dark .sidebar { background: #2d3748; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+        .cyber .sidebar { background: rgba(0, 255, 204, 0.1); backdrop-filter: blur(10px); }
+        .cosmic .sidebar { background: rgba(30, 30, 47, 0.9); box-shadow: 0 0 20px rgba(163, 191, 250, 0.3); }
+        .minimal .sidebar { background: #f9f9f9; border: 1px solid #e0e0e0; }
+        .retro .sidebar { background: #0f1c24; box-shadow: 0 0 10px rgba(212, 160, 23, 0.5); }
+        .terminal .sidebar { background: #000; border: 1px solid #fff; box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); font-family: 'IBM Plex Mono', monospace; }
+        .sidebar #sidebar-title {
+            font-size: 28px;
+            font-weight: 700;
+            font-family: 'IBM Plex Mono', monospace;
+            margin-bottom: 15px;
+            height: 38px; /* Fixed height for placeholder */
+            line-height: 38px; /* Match height for consistent spacing */
+        }
+        .clean #sidebar-title { color: #3182ce; }
+        .dark #sidebar-title { background: linear-gradient(90deg, #63b3ed, #e2e8f0); -webkit-background-clip: text; color: transparent; }
+        .cyber #sidebar-title { color: #00ffcc; }
+        .cosmic #sidebar-title { background: linear-gradient(90deg, #a3bffa, #818cf8); -webkit-background-clip: text; color: transparent; }
+        .minimal #sidebar-title { color: #222; }
+        .retro #sidebar-title { color: #d4a017; }
+        .terminal #sidebar-title { color: #fff; }
+        .sidebar .subtitle {
+            font-size: 14px;
+            margin-bottom: 15px;
+            opacity: 0;
+        }
+        .clean .subtitle { color: #4a5568; }
+        .dark .subtitle { color: #a0aec0; }
+        .cyber .subtitle { color: #66ffcc; }
+        .cosmic .subtitle { color: #c3dafe; }
+        .minimal .subtitle { color: #666; }
+        .retro .subtitle { color: #e8c670; }
+        .terminal .subtitle { color: #fff; }
+        .sidebar .contact {
+            font-size: 12px;
+            margin-bottom: 20px;
+            opacity: 0;
+        }
+        .clean .contact { color: #718096; }
+        .dark .contact { color: #cbd5e0; }
+        .cyber .contact { color: #99ffcc; }
+        .cosmic .contact { color: #d6bcfa; }
+        .minimal .contact { color: #888; }
+        .retro .contact { color: #f0d090; }
+        .terminal .contact { color: #fff; }
+        .sidebar nav ul {
+            list-style: none;
+        }
+        .sidebar nav li {
+            margin: 10px 0;
+            opacity: 0;
+        }
+        .sidebar nav a {
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        .clean nav a { color: #4a5568; }
+        .clean nav a:hover { color: #3182ce; background: #e2e8f0; transform: scale(1.05); }
+        .dark nav a { color: #a0aec0; }
+        .dark nav a:hover { color: #63b3ed; background: rgba(255, 255, 255, 0.1); transform: scale(1.05); }
+        .cyber nav a { color: #66ffcc; }
+        .cyber nav a:hover { color: #00ffcc; background: rgba(0, 255, 204, 0.2); transform: scale(1.05); }
+        .cosmic nav a { color: #a3bffa; }
+        .cosmic nav a:hover { color: #818cf8; background: rgba(163, 191, 250, 0.2); transform: scale(1.05); }
+        .minimal nav a { color: #444; }
+        .minimal nav a:hover { color: #000; background: #e0e0e0; transform: scale(1.05); }
+        .retro nav a { color: #d4a017; }
+        .retro nav a:hover { color: #fff; background: #2e4a5b; transform: scale(1.05); }
+        .terminal nav a { color: #fff; }
+        .terminal nav a:hover { color: #000; background: #fff; transform: scale(1.05); }
+        /* Sidebar Controls */
+        .sidebar-controls {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            opacity: 0;
+        }
+        .sidebar-controls label {
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .clean .sidebar-controls label { color: #4a5568; }
+        .dark .sidebar-controls label { color: #a0aec0; }
+        .cyber .sidebar-controls label { color: #66ffcc; }
+        .cosmic .sidebar-controls label { color: #c3dafe; }
+        .minimal .sidebar-controls label { color: #666; }
+        .retro .sidebar-controls label { color: #e8c670; }
+        .terminal .sidebar-controls label { color: #fff; }
+        .sidebar-controls select, .sidebar-controls button {
+            padding: 6px;
+            font-size: 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .clean .sidebar-controls select { background: #3182ce; color: #fff; }
+        .clean .sidebar-controls select:hover { background: #2b6cb0; }
+        .dark .sidebar-controls select { background: #63b3ed; color: #1a202c; }
+        .dark .sidebar-controls select:hover { background: #4299e1; }
+        .cyber .sidebar-controls select { background: #00ffcc; color: #0d1b2a; }
+        .cyber .sidebar-controls select:hover { background: #00cc99; }
+        .cosmic .sidebar-controls select { background: #818cf8; color: #fff; }
+        .cosmic .sidebar-controls select:hover { background: #667eea; }
+        .minimal .sidebar-controls select { background: #333; color: #fff; }
+        .minimal .sidebar-controls select:hover { background: #222; }
+        .retro .sidebar-controls select { background: #d4a017; color: #1a2b34; }
+        .retro .sidebar-controls select:hover { background: #b38c14; }
+        .terminal .sidebar-controls select { background: #fff; color: #000; }
+        .terminal .sidebar-controls select:hover { background: #ccc; }
+        .sidebar-controls button {
+            background: #48bb78;
+            color: #fff;
+        }
+        .terminal .sidebar-controls button { background: #fff; color: #000; }
+        .sidebar-controls button:hover { background: #38a169; }
+        .terminal .sidebar-controls button:hover { background: #ccc; }
+        /* Content */
+        .content {
+            flex: 2;
+            min-width: 300px;
+        }
+        .section {
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .clean .section { background: #ffffff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+        .dark .section { background: #2d3748; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+        .cyber .section { background: rgba(0, 255, 204, 0.05); backdrop-filter: blur(10px); }
+        .cosmic .section { background: rgba(30, 30, 47, 0.8); box-shadow: 0 0 15px rgba(163, 191, 250, 0.2); }
+        .minimal .section { background: #fff; border: 1px solid #e0e0e0; }
+        .retro .section { background: #0f1c24; box-shadow: 0 0 10px rgba(212, 160, 23, 0.3); }
+        .terminal .section { background: #000; border: 1px solid #fff; box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); font-family: 'IBM Plex Mono', monospace; }
+        .section h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            opacity: 0;
+        }
+        .clean h2 { color: #3182ce; border-bottom: 2px solid #3182ce; }
+        .dark h2 { color: #63b3ed; border-bottom: 2px solid #63b3ed; }
+        .cyber h2 { color: #00ffcc; border-bottom: 2px solid #00ffcc; }
+        .cosmic h2 { color: #a3bffa; border-bottom: 2px solid #818cf8; }
+        .minimal h2 { color: #333; border-bottom: 2px solid #333; }
+        .retro h2 { color: #d4a017; border-bottom: 2px solid #d4a017; }
+        .terminal h2 { color: #fff; border-bottom: 2px solid #fff; }
+        .section p {
+            font-size: 15px;
+            opacity: 0;
+        }
+        .clean p { color: #4a5568; }
+        .dark p { color: #e2e8f0; }
+        .cyber p { color: #ccffeb; }
+        .cosmic p { color: #d6bcfa; }
+        .minimal p { color: #555; }
+        .retro p { color: #f0d090; }
+        .terminal p { color: #fff; }
+        .job, .tech-experience, .education {
+            margin-bottom: 20px;
+        }
+        .job h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 3px;
+            opacity: 0;
+        }
+        .clean .job h3 { color: #2b6cb0; }
+        .dark .job h3 { color: #93c5fd; }
+        .cyber .job h3 { color: #00ffcc; }
+        .cosmic .job h3 { color: #818cf8; }
+        .minimal .job h3 { color: #222; }
+        .retro .job h3 { color: #e8c670; }
+        .terminal .job h3 { color: #fff; }
+        .job .dates {
+            font-size: 14px;
+            margin-bottom: 8px;
+            opacity: 0;
+        }
+        .clean .dates { color: #718096; }
+        .dark .dates { color: #a0aec0; }
+        .cyber .dates { color: #66ffcc; }
+        .cosmic .dates { color: #c3dafe; }
+        .minimal .dates { color: #888; }
+        .retro .dates { color: #f0d090; }
+        .terminal .dates { color: #fff; }
+        .job ul, .tech-experience ul, .education ul {
+            list-style: none;
+            padding-left: 15px;
+        }
+        .job li, .tech-experience li, .education li {
+            position: relative;
+            font-size: 14px;
+            margin-bottom: 8px;
+            opacity: 0;
+        }
+        .clean li { color: #4a5568; }
+        .dark li { color: #e2e8f0; }
+        .cyber li { color: #ccffeb; }
+        .cosmic li { color: #d6bcfa; }
+        .minimal li { color: #555; }
+        .retro li { color: #f0d090; }
+        .terminal li { color: #fff; }
+        .job li:before, .tech-experience li:before, .education li:before {
+            content: "▹";
+            position: absolute;
+            left: -15px;
+        }
+        .clean li:before { color: #3182ce; }
+        .dark li:before { color: #63b3ed; }
+        .cyber li:before { color: #00ffcc; }
+        .cosmic li:before { color: #818cf8; }
+        .minimal li:before { color: #333; }
+        .retro li:before { color: #d4a017; }
+        .terminal li:before { color: #fff; }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .skills-grid h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            opacity: 0;
+        }
+        .clean .skills-grid h3 { color: #2d3748; }
+        .dark .skills-grid h3 { color: #e2e8f0; }
+        .cyber .skills-grid h3 { color: #00ffcc; }
+        .cosmic .skills-grid h3 { color: #a3bffa; }
+        .minimal .skills-grid h3 { color: #333; }
+        .retro .skills-grid h3 { color: #d4a017; }
+        .terminal .skills-grid h3 { color: #fff; }
+        .skills-grid ul {
+            list-style: none;
+            padding-left: 15px;
+        }
+        .skills-grid li {
+            position: relative;
+            font-size: 14px;
+            margin-bottom: 5px;
+            opacity: 0;
+        }
+        .skills-grid li:before {
+            content: "▹";
+            position: absolute;
+            left: -15px;
+        }
+        /* Black-and-White Terminal Loading Screen */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            font-family: 'IBM Plex Mono', monospace;
+            color: #fff;
+            animation: fadeOut 0.5s ease 3s forwards;
+        }
+        .console {
+            background: #000;
+            padding: 20px;
+            border-radius: 0;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            width: 600px;
+            max-width: 90%;
+            border: 1px solid #fff;
+            position: relative;
+        }
+        .console-header {
+            background: #fff;
+            color: #000;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            margin: -20px -20px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .console-header .title {
+            text-transform: uppercase;
+        }
+        .console-header .controls {
+            font-size: 12px;
+        }
+        .console p {
+            margin: 8px 0;
+            font-size: 14px;
+            opacity: 0;
+        }
+        .console p:nth-child(2) { animation: type 0.5s ease forwards; }
+        .console p:nth-child(3) { animation: type 0.5s ease 0.7s forwards; }
+        .console p:nth-child(4) { animation: type 0.5s ease 1.4s forwards; }
+        .console p.access-granted { 
+            animation: type 0.5s ease 2.1s forwards; 
+            color: #00ff00; /* Green for ACCESS GRANTED */
+        }
+        .console .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #000;
+            border: 1px solid #fff;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .console .progress {
+            height: 100%;
+            background: #fff;
+            width: 0;
+            animation: progressFill 3s linear forwards;
+        }
+        .console .blink {
+            animation: blink 0.5s step-end infinite;
+        }
+        /* Skip Intro Button */
+        #skip-intro {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #fff;
+            color: #000;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            border: 1px solid #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            z-index: 1001;
+            transition: background 0.3s ease;
+        }
+        #skip-intro:hover {
+            background: #ccc;
+        }
+        /* Animations */
+        @keyframes type {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        @keyframes progressFill {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 20px;
+            }
+            .sidebar {
+                position: static;
+                margin-bottom: 20px;
+                min-width: 100%;
+            }
+            .sidebar #sidebar-title {
+                font-size: 24px;
+                height: 34px; /* Adjusted for smaller font */
+                line-height: 34px;
+            }
+            .console {
+                width: 100%;
+                padding: 15px;
+            }
+            #main-title {
+                left: 70px;
+                font-size: 28px;
+                top: 64px;
+            }
+            #skip-intro {
+                margin-top: 10px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body class="terminal">
+    <div class="loader">
+        <div class="console">
+            <div class="console-header">
+                <span class="title">SECURE RESUME TERMINAL v2.1</span>
+                <span class="controls">[-] [ ] [X]</span>
+            </div>
+            <p>C:\> INITIALIZING RESUME MODULE...</p>
+            <p>C:\> DEPLOYING ENCRYPTION LAYERS...</p>
+            <p>C:\> ESTABLISHING SECURE CONNECTION...</p>
+            <p class="access-granted">C:\> ACCESS GRANTED<span class="blink">_</span></p>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+        <button id="skip-intro">Skip Intro</button>
+    </div>
+    <h1 id="main-title"></h1>
+    <div class="container">
+        <aside class="sidebar">
+            <h1 id="sidebar-title"></h1> <!-- Placeholder for title -->
+            <div class="subtitle">Cybersecurity Enthusiast & Developer</div>
+            <div class="contact">
+                6215 S Trace Dr, Magnolia, TX<br>
+                levimccarty.business@gmail.com<br>
+                936-330-2492
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#summary">Summary</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#technical">Technical</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-controls">
+                <label for="theme-select">Theme</label>
+                <select id="theme-select">
+                    <option value="clean">Clean</option>
+                    <option value="dark">Dark</option>
+                    <option value="cyber">Cyber</option>
+                    <option value="cosmic">Cosmic</option>
+                    <option value="minimal">Minimal</option>
+                    <option value="retro">Retro</option>
+                    <option value="terminal" selected>Terminal</option>
+                </select>
+                <button id="save-resume">Save Resume</button>
+            </div>
+        </aside>
+
+        <main class="content">
+            <section class="section" id="summary">
+                <h2>Summary</h2>
+                <p>I’m a tech-driven problem-solver with 8 years of programming experience and a passion for cybersecurity. Certified in CompTIA A+ and working on Network+, I’ve built a strong foundation through hands-on work, coding projects, and PC builds. I’m ready to secure systems and code solutions that make a difference.</p>
+            </section>
+
+            <section class="section" id="experience">
+                <h2>Work Experience</h2>
+                <div class="job">
+                    <h3>Walmart Merchandise & Stocking Associate</h3>
+                    <div class="dates">Oct 2023 – 2024</div>
+                    <ul>
+                        <li>Troubleshot equipment on the spot to keep operations smooth.</li>
+                        <li>Trained new hires on safety and organization—kept us all in sync.</li>
+                        <li>Managed inventory with precision, no chaos, just order.</li>
+                        <li>Jumped in with the team to crush it on busy days.</li>
+                    </ul>
+                </div>
+                <div class="job">
+                    <h3>Memphis Bar and Grill Cook</h3>
+                    <div class="dates">Apr 2022 – 2023</div>
+                    <ul>
+                        <li>Ran the kitchen solo, pumping out quality under pressure.</li>
+                        <li>Kept safety and hygiene tight—zero compromises.</li>
+                        <li>Sped up workflows without missing a beat.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section tech-experience" id="technical">
+                <h2>Technical Experience</h2>
+                <ul>
+                    <li><strong>Programming (8+ Years):</strong> Built projects in C#, Lua, VB, PowerShell, HTML, CSS, and JavaScript—coding’s my jam.</li>
+                    <li><strong>Hardware:</strong> Diagnosed and fixed systems to keep them running strong.</li>
+                    <li><strong>Tech Skills:</strong> Assembled PCs from scratch and tackled troubleshooting head-on.</li>
+                    <li><strong>Security:</strong> Handled gear and data with a focus on safety and reliability.</li>
+                </ul>
+            </section>
+
+            <section class="section education" id="education">
+                <h2>Education</h2>
+                <ul>
+                    <li>East Texas Charter High School, 2022</li>
+                    <li>CompTIA A+ Certification, 2023</li>
+                    <li>CompTIA Network+, In Progress (2025)</li>
+                </ul>
+            </section>
+
+            <section class="section" id="skills">
+                <h2>Skills</h2>
+                <div class="skills-grid">
+                    <div>
+                        <h3>Programming</h3>
+                        <ul>
+                            <li>C#, Lua, VB, PowerShell</li>
+                            <li>HTML, CSS, JavaScript</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Technical</h3>
+                        <ul>
+                            <li>Hardware troubleshooting & PC builds (A+: Core 1)</li>
+                            <li>Networking basics & config (Network+ in progress; A+: Core 2)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Security</h3>
+                        <ul>
+                            <li>System safety & protection (A+: Core 2)</li>
+                            <li>Detail-driven execution</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Professional</h3>
+                        <ul>
+                            <li>Teamwork & communication</li>
+                            <li>Pressure-proof problem-solving</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="projects">
+                <h2>Projects</h2>
+                <p>Check out my coding projects on GitHub:</p>
+                <ul>
+                    <li><a href="https://github.com/levimac03" target="_blank">github.com/levimac03</a></li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Fullscreen on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Failed to enter fullscreen: ${err.message}`);
+                });
+            }
+        });
+
+        // Theme Switcher
+        const themeSelect = document.getElementById('theme-select');
+        themeSelect.addEventListener('change', () => {
+            document.body.className = themeSelect.value;
+        });
+
+        // Smooth Scroll & Transition Animation
+        document.querySelectorAll('.sidebar nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+                document.querySelectorAll('.section').forEach(section => {
+                    section.style.opacity = '0';
+                    section.style.transform = 'translateY(20px)';
+                });
+                setTimeout(() => {
+                    targetSection.style.opacity = '1';
+                    targetSection.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        });
+
+        // Save Resume
+        document.getElementById('save-resume').addEventListener('click', () => {
+            const content = document.querySelector('.container').outerHTML;
+            const blob = new Blob([`
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Levi McCarty Resume</title>
+                    <style>${document.querySelector('style').innerHTML}</style>
+                </head>
+                <body class="terminal">
+                    ${content}
+                </body>
+                </html>
+            `], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'Levi_McCarty_Resume.html';
+            link.click();
+        });
+
+        // Main Page Load Animation
+        const mainTitle = document.getElementById('main-title');
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarTitle = document.getElementById('sidebar-title');
+        const sections = document.querySelectorAll('.section');
+        const subtitle = document.querySelector('.subtitle');
+        const contact = document.querySelector('.contact');
+        const navItems = document.querySelectorAll('.sidebar nav li');
+        const sidebarControls = document.querySelector('.sidebar-controls');
+        const skipIntroButton = document.getElementById('skip-intro');
+        const loader = document.querySelector('.loader');
+        const initialText = "Loading resume...";
+        const finalText = "Levi McCarty";
+        let introSkipped = false;
+
+        function typeWriter(text, index, callback) {
+            if (index < text.length && !introSkipped) {
+                mainTitle.textContent = text.substring(0, index + 1) + "_";
+                setTimeout(() => typeWriter(text, index + 1, callback), 100);
+            } else {
+                mainTitle.textContent = text + "_";
+                setTimeout(callback, 500);
+            }
+        }
+
+        function backspace(text, index, callback) {
+            if (index >= 0 && !introSkipped) {
+                mainTitle.textContent = text.substring(0, index) + "_";
+                setTimeout(() => backspace(text, index - 1, callback), 100);
+            } else {
+                setTimeout(callback, 100);
+            }
+        }
+
+        function loadContent() {
+            sections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                    section.style.animation = introSkipped ? '' : 'slideIn 0.5s ease forwards';
+                    section.querySelector('h2').style.opacity = '1';
+                    section.querySelector('h2').style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                    const p = section.querySelector('p');
+                    if (p) {
+                        p.style.opacity = '1';
+                        p.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                    }
+                    const jobElements = section.querySelectorAll('.job h3, .job .dates, .job li');
+                    jobElements.forEach((el, i) => {
+                        setTimeout(() => {
+                            el.style.opacity = '1';
+                            el.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                        }, introSkipped ? 0 : i * 100);
+                    });
+                    const techEduItems = section.querySelectorAll('.tech-experience li, .education li');
+                    techEduItems.forEach((item, i) => {
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                        }, introSkipped ? 0 : i * 100);
+                    });
+                    const skillGroups = section.querySelectorAll('.skills-grid > div');
+                    skillGroups.forEach((group, i) => {
+                        setTimeout(() => {
+                            const h3 = group.querySelector('h3');
+                            h3.style.opacity = '1';
+                            h3.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                            group.querySelectorAll('li').forEach((li, j) => {
+                                setTimeout(() => {
+                                    li.style.opacity = '1';
+                                    li.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                                }, introSkipped ? 0 : j * 100);
+                            });
+                        }, introSkipped ? 0 : i * 200);
+                    });
+                }, introSkipped ? 0 : index * 500);
+            });
+
+            setTimeout(() => {
+                sidebar.style.opacity = '1';
+                sidebar.style.animation = introSkipped ? '' : 'slideIn 0.5s ease forwards';
+                subtitle.style.opacity = '1';
+                subtitle.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                setTimeout(() => {
+                    contact.style.opacity = '1';
+                    contact.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                }, introSkipped ? 0 : 200);
+                navItems.forEach((item, i) => {
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                    }, introSkipped ? 0 : 400 + i * 100);
+                });
+                setTimeout(() => {
+                    sidebarControls.style.opacity = '1';
+                    sidebarControls.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                }, introSkipped ? 0 : 400 + navItems.length * 100);
+            }, introSkipped ? 0 : sections.length * 500);
+        }
+
+        function skipIntro() {
+            introSkipped = true;
+            loader.style.display = 'none';
+            mainTitle.style.display = 'none';
+            sidebarTitle.textContent = finalText;
+            sidebarTitle.style.fontSize = window.innerWidth <= 768 ? '24px' : '28px';
+            loadContent();
+        }
+
+        skipIntroButton.addEventListener('click', skipIntro);
+
+        setTimeout(() => {
+            if (!introSkipped) {
+                typeWriter(initialText, 0, () => {
+                    loadContent();
+                    setTimeout(() => {
+                        backspace(initialText, initialText.length - 1, () => {
+                            typeWriter(finalText, 0, () => {
+                                mainTitle.textContent = finalText;
+                                sidebarTitle.textContent = finalText;
+                                sidebarTitle.style.fontSize = window.innerWidth <= 768 ? '24px' : '28px';
+                                mainTitle.style.display = 'none';
+                            });
+                        });
+                    }, sections.length * 500 + 500 + navItems.length * 100 + 600);
+                });
+            }
+        }, 3000); // Start after initial loader fades
+    </script>
+</body>
+</html>
