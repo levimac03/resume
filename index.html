@@ -18,7 +18,6 @@
             overflow-x: hidden;
             transition: background 0.5s ease, color 0.5s ease;
         }
-        /* Themes */
         body.clean { background: #f0f4f8; color: #2d3748; }
         body.dark { background: #1a202c; color: #e2e8f0; }
         body.cyber { background: linear-gradient(135deg, #0d1b2a, #1b263b); color: #00ffcc; }
@@ -34,7 +33,6 @@
             flex-wrap: wrap;
             gap: 20px;
         }
-        /* Header (outside sidebar, temporary) */
         #main-title {
             font-size: 32px;
             font-weight: 700;
@@ -51,7 +49,6 @@
         .minimal #main-title { color: #222; }
         .retro #main-title { color: #d4a017; }
         .terminal #main-title { color: #fff; }
-        /* Sidebar */
         .sidebar {
             flex: 1;
             min-width: 250px;
@@ -76,8 +73,8 @@
             font-weight: 700;
             font-family: 'IBM Plex Mono', monospace;
             margin-bottom: 15px;
-            height: 38px; /* Fixed height for placeholder */
-            line-height: 38px; /* Match height for consistent spacing */
+            height: 38px;
+            line-height: 38px;
         }
         .clean #sidebar-title { color: #3182ce; }
         .dark #sidebar-title { background: linear-gradient(90deg, #63b3ed, #e2e8f0); -webkit-background-clip: text; color: transparent; }
@@ -142,7 +139,6 @@
         .retro nav a:hover { color: #fff; background: #2e4a5b; transform: scale(1.05); }
         .terminal nav a { color: #fff; }
         .terminal nav a:hover { color: #000; background: #fff; transform: scale(1.05); }
-        /* Sidebar Controls */
         .sidebar-controls {
             margin-top: 15px;
             display: flex;
@@ -190,7 +186,6 @@
         .terminal .sidebar-controls button { background: #fff; color: #000; }
         .sidebar-controls button:hover { background: #38a169; }
         .terminal .sidebar-controls button:hover { background: #ccc; }
-        /* Content */
         .content {
             flex: 2;
             min-width: 300px;
@@ -234,6 +229,38 @@
         .minimal p { color: #555; }
         .retro p { color: #f0d090; }
         .terminal p { color: #fff; }
+
+        .section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+         .section ul li {
+             position: relative;
+             font-size: 14px;
+             margin-bottom: 8px;
+             opacity: 0;
+             padding-left: 15px;
+         }
+         .section ul li:before {
+             content: "▹";
+             position: absolute;
+             left: 0px;
+         }
+        .clean li { color: #4a5568; }
+        .dark li { color: #e2e8f0; }
+        .cyber li { color: #ccffeb; }
+        .cosmic li { color: #d6bcfa; }
+        .minimal li { color: #555; }
+        .retro li { color: #f0d090; }
+        .terminal li { color: #fff; }
+        .clean li:before { color: #3182ce; }
+        .dark li:before { color: #63b3ed; }
+        .cyber li:before { color: #00ffcc; }
+        .cosmic li:before { color: #818cf8; }
+        .minimal li:before { color: #333; }
+        .retro li:before { color: #d4a017; }
+        .terminal li:before { color: #fff; }
+
         .job, .tech-experience, .education {
             margin-bottom: 20px;
         }
@@ -254,6 +281,7 @@
             font-size: 14px;
             margin-bottom: 8px;
             opacity: 0;
+            padding-left: 0;
         }
         .clean .dates { color: #718096; }
         .dark .dates { color: #a0aec0; }
@@ -262,35 +290,19 @@
         .minimal .dates { color: #888; }
         .retro .dates { color: #f0d090; }
         .terminal .dates { color: #fff; }
-        .job ul, .tech-experience ul, .education ul {
-            list-style: none;
-            padding-left: 15px;
+
+        #github-profile ul li a { /* Style GitHub link specifically if needed */
+             color: inherit; /* Or set specific theme colors */
+             text-decoration: underline;
         }
-        .job li, .tech-experience li, .education li {
-            position: relative;
-            font-size: 14px;
-            margin-bottom: 8px;
-            opacity: 0;
-        }
-        .clean li { color: #4a5568; }
-        .dark li { color: #e2e8f0; }
-        .cyber li { color: #ccffeb; }
-        .cosmic li { color: #d6bcfa; }
-        .minimal li { color: #555; }
-        .retro li { color: #f0d090; }
-        .terminal li { color: #fff; }
-        .job li:before, .tech-experience li:before, .education li:before {
-            content: "▹";
-            position: absolute;
-            left: -15px;
-        }
-        .clean li:before { color: #3182ce; }
-        .dark li:before { color: #63b3ed; }
-        .cyber li:before { color: #00ffcc; }
-        .cosmic li:before { color: #818cf8; }
-        .minimal li:before { color: #333; }
-        .retro li:before { color: #d4a017; }
-        .terminal li:before { color: #fff; }
+         #github-profile ul li a:hover {
+             text-decoration: none;
+         }
+         #github-profile ul li:before {
+              content: "" !important; /* Remove bullet for GitHub link */
+         }
+
+
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -301,6 +313,7 @@
             font-weight: 600;
             margin-bottom: 5px;
             opacity: 0;
+            padding-left: 0; /* Override section ul li padding */
         }
         .clean .skills-grid h3 { color: #2d3748; }
         .dark .skills-grid h3 { color: #e2e8f0; }
@@ -311,20 +324,20 @@
         .terminal .skills-grid h3 { color: #fff; }
         .skills-grid ul {
             list-style: none;
-            padding-left: 15px;
+            padding-left: 0px; /* Override section ul padding */
         }
         .skills-grid li {
             position: relative;
             font-size: 14px;
             margin-bottom: 5px;
             opacity: 0;
+            padding-left: 15px; /* Keep padding for list items */
         }
         .skills-grid li:before {
             content: "▹";
             position: absolute;
-            left: -15px;
+            left: 0px; /* Adjust bullet position */
         }
-        /* Black-and-White Terminal Loading Screen */
         .loader {
             position: fixed;
             top: 0;
@@ -376,9 +389,9 @@
         .console p:nth-child(2) { animation: type 0.5s ease forwards; }
         .console p:nth-child(3) { animation: type 0.5s ease 0.7s forwards; }
         .console p:nth-child(4) { animation: type 0.5s ease 1.4s forwards; }
-        .console p.access-granted { 
-            animation: type 0.5s ease 2.1s forwards; 
-            color: #00ff00; /* Green for ACCESS GRANTED */
+        .console p.access-granted {
+            animation: type 0.5s ease 2.1s forwards;
+            color: #00ff00;
         }
         .console .progress-bar {
             width: 100%;
@@ -397,7 +410,6 @@
         .console .blink {
             animation: blink 0.5s step-end infinite;
         }
-        /* Skip Intro Button */
         #skip-intro {
             margin-top: 20px;
             padding: 10px 20px;
@@ -414,7 +426,6 @@
         #skip-intro:hover {
             background: #ccc;
         }
-        /* Animations */
         @keyframes type {
             from { opacity: 0; transform: translateX(-10px); }
             to { opacity: 1; transform: translateX(0); }
@@ -437,7 +448,6 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        /* Responsive */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -450,7 +460,7 @@
             }
             .sidebar #sidebar-title {
                 font-size: 24px;
-                height: 34px; /* Adjusted for smaller font */
+                height: 34px;
                 line-height: 34px;
             }
             .console {
@@ -469,7 +479,7 @@
         }
     </style>
 </head>
-<body class="terminal">
+<body class="cosmic">
     <div class="loader">
         <div class="console">
             <div class="console-header">
@@ -489,7 +499,7 @@
     <h1 id="main-title"></h1>
     <div class="container">
         <aside class="sidebar">
-            <h1 id="sidebar-title"></h1> <!-- Placeholder for title -->
+            <h1 id="sidebar-title"></h1>
             <div class="subtitle">Cybersecurity Enthusiast & Developer</div>
             <div class="contact">
                 6215 S Trace Dr, Magnolia, TX<br>
@@ -503,7 +513,8 @@
                     <li><a href="#technical">Technical</a></li>
                     <li><a href="#education">Education</a></li>
                     <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#notable-projects">Notable Projects</a></li>
+                    <li><a href="#github-profile">GitHub Profile</a></li>
                 </ul>
             </nav>
             <div class="sidebar-controls">
@@ -512,10 +523,10 @@
                     <option value="clean">Clean</option>
                     <option value="dark">Dark</option>
                     <option value="cyber">Cyber</option>
-                    <option value="cosmic">Cosmic</option>
+                    <option value="cosmic" selected>Cosmic</option>
                     <option value="minimal">Minimal</option>
                     <option value="retro">Retro</option>
-                    <option value="terminal" selected>Terminal</option>
+                    <option value="terminal">Terminal</option>
                 </select>
                 <button id="save-resume">Save Resume</button>
             </div>
@@ -603,9 +614,36 @@
                 </div>
             </section>
 
-            <section class="section" id="projects">
-                <h2>Projects</h2>
-                <p>Check out my coding projects on GitHub:</p>
+            <section class="section" id="notable-projects">
+                <h2>Notable Projects</h2>
+                 <ul>
+                    <li>Firmware update automation tool</li>
+                    <li>Personal AI Knowledge Base system</li>
+                    <li>EHR patient management GUI</li>
+                    <li>ObsidianPy modern IDE GUI</li>
+                    <li>Modern Task Manager GUI</li>
+                    <li>Network scanner for troubleshooting</li>
+                    <li>Camera settings validation script</li>
+                    <li>NovaLLM chat interface GUI</li>
+                    <li>Process termination in Task Manager</li>
+                    <li>Camera configuration logging script</li>
+                    <li>Camera IP mapping tool</li>
+                    <li>Installation report data entry automation</li>
+                    <li>Pybox script execution GUI</li>
+                    <li>Microphone speech transcription GUI</li>
+                    <li>Document indexing GUI</li>
+                    <li>Client report data parser</li>
+                    <li>Installation log cleanup script</li>
+                    <li>Ageint GoLive Material Design GUI</li>
+                    <li>Audio Transcript Maker GUI</li>
+                    <li>Network ping diagnostic utility</li>
+                    <li>Data sorting with CSV export</li>
+                </ul>
+            </section>
+
+            <section class="section" id="github-profile">
+                <h2>GitHub Profile</h2>
+                <p>Explore the code behind these projects and more:</p>
                 <ul>
                     <li><a href="https://github.com/levimac03" target="_blank">github.com/levimac03</a></li>
                 </ul>
@@ -614,7 +652,6 @@
     </div>
 
     <script>
-        // Fullscreen on Load
         document.addEventListener('DOMContentLoaded', () => {
             if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen().catch(err => {
@@ -623,53 +660,30 @@
             }
         });
 
-        // Theme Switcher
         const themeSelect = document.getElementById('theme-select');
         themeSelect.addEventListener('change', () => {
             document.body.className = themeSelect.value;
         });
 
-        // Smooth Scroll & Transition Animation
         document.querySelectorAll('.sidebar nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
                 const targetSection = document.getElementById(targetId);
-                targetSection.scrollIntoView({ behavior: 'smooth' });
-                document.querySelectorAll('.section').forEach(section => {
-                    section.style.opacity = '0';
-                    section.style.transform = 'translateY(20px)';
-                });
-                setTimeout(() => {
-                    targetSection.style.opacity = '1';
-                    targetSection.style.transform = 'translateY(0)';
-                }, 100);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                    document.querySelectorAll('.section').forEach(section => {
+                        section.style.opacity = '0';
+                        section.style.transform = 'translateY(20px)';
+                    });
+                    setTimeout(() => {
+                        targetSection.style.opacity = '1';
+                        targetSection.style.transform = 'translateY(0)';
+                    }, 100);
+                }
             });
         });
 
-        // Save Resume
-        document.getElementById('save-resume').addEventListener('click', () => {
-            const content = document.querySelector('.container').outerHTML;
-            const blob = new Blob([`
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <title>Levi McCarty Resume</title>
-                    <style>${document.querySelector('style').innerHTML}</style>
-                </head>
-                <body class="terminal">
-                    ${content}
-                </body>
-                </html>
-            `], { type: 'text/html' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'Levi_McCarty_Resume.html';
-            link.click();
-        });
-
-        // Main Page Load Animation
         const mainTitle = document.getElementById('main-title');
         const sidebar = document.querySelector('.sidebar');
         const sidebarTitle = document.getElementById('sidebar-title');
@@ -688,9 +702,12 @@
             if (index < text.length && !introSkipped) {
                 mainTitle.textContent = text.substring(0, index + 1) + "_";
                 setTimeout(() => typeWriter(text, index + 1, callback), 100);
+            } else if (!introSkipped) {
+                 mainTitle.textContent = text + "_";
+                 setTimeout(callback, 500);
             } else {
-                mainTitle.textContent = text + "_";
-                setTimeout(callback, 500);
+                 mainTitle.textContent = finalText;
+                 callback();
             }
         }
 
@@ -698,8 +715,10 @@
             if (index >= 0 && !introSkipped) {
                 mainTitle.textContent = text.substring(0, index) + "_";
                 setTimeout(() => backspace(text, index - 1, callback), 100);
-            } else {
+            } else if (!introSkipped){
                 setTimeout(callback, 100);
+            } else {
+                 callback();
             }
         }
 
@@ -709,72 +728,93 @@
                     section.style.opacity = '1';
                     section.style.transform = 'translateY(0)';
                     section.style.animation = introSkipped ? '' : 'slideIn 0.5s ease forwards';
-                    section.querySelector('h2').style.opacity = '1';
-                    section.querySelector('h2').style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+
+                    const h2 = section.querySelector('h2');
+                    if(h2) {
+                        h2.style.opacity = '1';
+                        h2.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                    }
                     const p = section.querySelector('p');
                     if (p) {
                         p.style.opacity = '1';
                         p.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
                     }
-                    const jobElements = section.querySelectorAll('.job h3, .job .dates, .job li');
+
+                    const listItems = section.querySelectorAll('ul > li');
+                     listItems.forEach((li, i) => {
+                          setTimeout(() => {
+                               li.style.opacity = '1';
+                               li.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                           }, introSkipped ? 0 : i * 50); // Faster fade-in for list items
+                     });
+
+
+                    const jobElements = section.querySelectorAll('.job h3, .job .dates');
                     jobElements.forEach((el, i) => {
                         setTimeout(() => {
                             el.style.opacity = '1';
                             el.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
                         }, introSkipped ? 0 : i * 100);
                     });
-                    const techEduItems = section.querySelectorAll('.tech-experience li, .education li');
-                    techEduItems.forEach((item, i) => {
-                        setTimeout(() => {
-                            item.style.opacity = '1';
-                            item.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
-                        }, introSkipped ? 0 : i * 100);
-                    });
+
                     const skillGroups = section.querySelectorAll('.skills-grid > div');
                     skillGroups.forEach((group, i) => {
                         setTimeout(() => {
                             const h3 = group.querySelector('h3');
-                            h3.style.opacity = '1';
-                            h3.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                             if(h3) {
+                                 h3.style.opacity = '1';
+                                 h3.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                             }
                             group.querySelectorAll('li').forEach((li, j) => {
                                 setTimeout(() => {
                                     li.style.opacity = '1';
                                     li.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
-                                }, introSkipped ? 0 : j * 100);
+                                }, introSkipped ? 0 : j * 50); // Faster fade-in
                             });
-                        }, introSkipped ? 0 : i * 200);
+                        }, introSkipped ? 0 : i * 150); // Stagger skill groups slightly less
                     });
-                }, introSkipped ? 0 : index * 500);
+
+                }, introSkipped ? 0 : index * 300); // Stagger sections slightly less
             });
 
             setTimeout(() => {
-                sidebar.style.opacity = '1';
-                sidebar.style.animation = introSkipped ? '' : 'slideIn 0.5s ease forwards';
-                subtitle.style.opacity = '1';
-                subtitle.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                 if(sidebar) {
+                    sidebar.style.opacity = '1';
+                    sidebar.style.animation = introSkipped ? '' : 'slideIn 0.5s ease forwards';
+                 }
+                 if(subtitle) {
+                    subtitle.style.opacity = '1';
+                    subtitle.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                 }
                 setTimeout(() => {
-                    contact.style.opacity = '1';
-                    contact.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
-                }, introSkipped ? 0 : 200);
+                    if(contact){
+                        contact.style.opacity = '1';
+                        contact.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                    }
+                }, introSkipped ? 0 : 100); // Faster sidebar fade-ins
                 navItems.forEach((item, i) => {
                     setTimeout(() => {
                         item.style.opacity = '1';
                         item.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
-                    }, introSkipped ? 0 : 400 + i * 100);
+                    }, introSkipped ? 0 : 200 + i * 50); // Faster nav fade-in
                 });
                 setTimeout(() => {
-                    sidebarControls.style.opacity = '1';
-                    sidebarControls.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
-                }, introSkipped ? 0 : 400 + navItems.length * 100);
-            }, introSkipped ? 0 : sections.length * 500);
+                     if(sidebarControls) {
+                        sidebarControls.style.opacity = '1';
+                        sidebarControls.style.animation = introSkipped ? '' : 'fadeIn 0.5s ease forwards';
+                     }
+                }, introSkipped ? 0 : 200 + navItems.length * 50); // Adjust timing based on faster nav fade-in
+            }, introSkipped ? 0 : sections.length * 300); // Adjust timing based on faster section stagger
         }
 
         function skipIntro() {
             introSkipped = true;
-            loader.style.display = 'none';
-            mainTitle.style.display = 'none';
-            sidebarTitle.textContent = finalText;
-            sidebarTitle.style.fontSize = window.innerWidth <= 768 ? '24px' : '28px';
+             if(loader) loader.style.display = 'none';
+             if(mainTitle) mainTitle.style.display = 'none';
+             if(sidebarTitle) {
+                sidebarTitle.textContent = finalText;
+                sidebarTitle.style.fontSize = window.innerWidth <= 768 ? '24px' : '28px';
+             }
             loadContent();
         }
 
@@ -782,21 +822,102 @@
 
         setTimeout(() => {
             if (!introSkipped) {
-                typeWriter(initialText, 0, () => {
-                    loadContent();
-                    setTimeout(() => {
-                        backspace(initialText, initialText.length - 1, () => {
-                            typeWriter(finalText, 0, () => {
-                                mainTitle.textContent = finalText;
-                                sidebarTitle.textContent = finalText;
-                                sidebarTitle.style.fontSize = window.innerWidth <= 768 ? '24px' : '28px';
-                                mainTitle.style.display = 'none';
+                 if(mainTitle) {
+                    typeWriter(initialText, 0, () => {
+                        loadContent();
+                        setTimeout(() => {
+                            backspace(initialText, initialText.length - 1, () => {
+                                typeWriter(finalText, 0, () => {
+                                     if(mainTitle) mainTitle.textContent = finalText;
+                                     if(sidebarTitle) {
+                                        sidebarTitle.textContent = finalText;
+                                        sidebarTitle.style.fontSize = window.innerWidth <= 768 ? '24px' : '28px';
+                                     }
+                                     if(mainTitle) mainTitle.style.display = 'none';
+                                });
                             });
-                        });
-                    }, sections.length * 500 + 500 + navItems.length * 100 + 600);
-                });
+                         }, Math.max(sections.length * 300, 200 + navItems.length * 50) + 500); // Adjust delay based on potentially faster loadContent animation
+                    });
+                 } else {
+                     loadContent(); // Load content even if mainTitle isn't found
+                 }
             }
-        }, 3000); // Start after initial loader fades
+        }, 3000);
+
+        document.getElementById('save-resume').addEventListener('click', () => {
+            const currentTheme = document.body.className;
+            const contentContainer = document.querySelector('.container');
+            if (!contentContainer) return;
+
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = contentContainer.outerHTML; // Clone container content
+
+            const selectElement = tempDiv.querySelector('#theme-select');
+            if (selectElement) {
+                const currentlySelected = selectElement.querySelector('option[selected]');
+                if (currentlySelected) {
+                    currentlySelected.removeAttribute('selected');
+                }
+                const newSelectedOption = selectElement.querySelector(`option[value="${currentTheme}"]`);
+                if (newSelectedOption) {
+                    newSelectedOption.setAttribute('selected', '');
+                }
+            }
+            const updatedContent = tempDiv.innerHTML;
+            const styles = document.querySelector('style')?.innerHTML || '';
+
+            const blob = new Blob([`
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Levi McCarty Resume</title>
+                    <style>${styles}</style>
+                </head>
+                <body class="${currentTheme}">
+                    ${updatedContent}
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const themeSelect = document.getElementById('theme-select');
+                            if (themeSelect) {
+                                themeSelect.addEventListener('change', () => {
+                                    document.body.className = themeSelect.value;
+                                });
+                                themeSelect.value = "${currentTheme}";
+                            }
+                            const elementsToHide = ['#save-resume', '#skip-intro', '.loader', '#main-title'];
+                            elementsToHide.forEach(selector => {
+                                const el = document.querySelector(selector);
+                                if(el) el.style.display = 'none';
+                            });
+
+                            const elementsToShow = [
+                                '.sidebar', '.section', '.subtitle', '.contact',
+                                '.sidebar nav li', '.sidebar-controls', '.section h2',
+                                '.section p', '.job h3', '.job .dates', '.job li',
+                                '.tech-experience li', '.education li', '.skills-grid h3',
+                                '.skills-grid li', '#notable-projects li', '#github-profile li' // Added new project lists
+                            ];
+                            elementsToShow.forEach(selector => {
+                                document.querySelectorAll(selector).forEach(el => {
+                                    el.style.opacity = '1';
+                                    el.style.transform = 'translateY(0)';
+                                    el.style.animation = 'none';
+                                });
+                            });
+                            const sidebarTitle = document.getElementById('sidebar-title');
+                            if (sidebarTitle) sidebarTitle.textContent = "Levi McCarty";
+                        });
+                    <\/script>
+                </body>
+                </html>
+            `], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'Levi_McCarty_Resume.html';
+            link.click();
+            URL.revokeObjectURL(link.href);
+        });
     </script>
 </body>
 </html>
